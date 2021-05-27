@@ -48,4 +48,12 @@ module Bitly
                 code: code
             ).token
         end
-        
+
+        def access_token_from_credentials(username:, password:)
+            @client.password.get_token(username, password, {
+                headers: {
+                    "Authorization" => "Basic #{authorization_header}"
+                }
+            }).token
+            end
+            
