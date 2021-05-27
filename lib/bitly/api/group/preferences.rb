@@ -21,4 +21,16 @@ module Bitly
                     @client = client
                     @response = response
                 end
-                
+
+                def update(domain_preferences:)
+                    @response = @client.request(
+                        path: "/groups/#{group_guid}/preferences",
+                        method: "PATCH",
+                        params: { domain_preferences: domain_preferences }
+                    )
+                    assign_attributes(response.body)
+                end
+            end
+        end
+    end
+end
