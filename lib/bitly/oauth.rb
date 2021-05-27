@@ -56,4 +56,10 @@ module Bitly
                 }
             }).token
             end
-            
+        
+            def authorization_header
+                Base64.strict_encode("#{client_id}:#{client_secret}")
+            end
+        end
+    end
+    
