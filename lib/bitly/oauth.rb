@@ -41,4 +41,11 @@ module Bitly
         end
 
         private 
+
+        def access_token_from_code(redirect_uri:, code:)
+            @client.get_token(
+                redirect_uri: redirect_uri,
+                code: code
+            ).token
+        end
         
