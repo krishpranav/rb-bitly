@@ -17,4 +17,7 @@ module Bitly
                 request = Bitly::HTTP::Request.new(uri: uri, method: method, params: params, headers: headers)
                 @http.request(request)
             end
-            
+
+            def shorten(long_url:, domain: nil, group_guid: nil)
+                Bitlink.shorten(client: self, long_url: long_url, domain: domain, group_guid: group_guid)
+            end 
