@@ -16,3 +16,13 @@ module Bitly
                 :token_url => '/oauth/access_token',
             )
         end
+
+        def authorize_uri(redirect_uri, state: nil)
+            params = {
+                redirect_uri: redirect_uri,
+                client_id: client_id
+            }
+            params[:state] = state if state
+            @client.authorize_uri(**params).gsub(/api-ssl\./,'')
+        end
+        
