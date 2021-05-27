@@ -15,4 +15,17 @@ module Bitly
                 end
                 List.new(items: organizations, response: response)
             end
-            
+
+            def self.fetch(client:, organization_guid:)
+                response = client.request(path: "/organizations/#{organization_guid}")
+                Organization.new(data: response.body, client: client, response: response)
+            end
+
+            def self.attributes
+                [:name, :guid, :is_active, :tier, :tier_family, :tier_display_name, :role, :bsds]
+            end
+
+            def self.time_attributes
+                [:created, :modified]
+            end
+            attr_reader(*(attributes + time_attributes))
