@@ -18,4 +18,9 @@ module Bitly
                 response = client.request(path: "/groups#{group_guid}/shorten_counts")
                 new(data: response.body, response: response)
             end
+
+            def self.by_organization(client:, organization_guid:)
+                response = client.request(path: "/organization/#{organization_guid}/shorten_counts")
+                new(data: response.body, response: response)
+            end
             
