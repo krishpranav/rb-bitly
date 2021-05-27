@@ -23,4 +23,14 @@ module Bitly
                 response = client.request(path: "/organization/#{organization_guid}/shorten_counts")
                 new(data: response.body, response: response)
             end
-            
+
+            def initialize(data:, response: nil)
+                assign_attributes(data)
+                @metrics = data["metrics"].map do |metric|
+                    Metric.new(metric["key"], metric["value"])
+                end
+                @response = response
+            end
+        end
+    end
+end
