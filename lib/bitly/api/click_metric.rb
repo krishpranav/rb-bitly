@@ -22,4 +22,12 @@ module Bitly
                     @facet = facet
                 end
             end
+
+            class References < Bitly::API::List
+                attr_reader :network
+                def initialize(items:, response:, network:)
+                    super(items: items, response: response)
+                    @network = network
+                end
+            end
             
