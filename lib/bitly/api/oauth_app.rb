@@ -14,4 +14,13 @@ module Bitly
                 response = client.request(path: "/apps/#{client_id}")
                 new(data: response.body, client: client, response: response)
             end
-            
+
+            def initialize(data:, client:, response: nil)
+                assign_attributes(data)
+                @client = client
+                @response = response
+            end
+        end
+    end
+end
+
