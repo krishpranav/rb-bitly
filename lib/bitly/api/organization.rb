@@ -29,3 +29,14 @@ module Bitly
                 [:created, :modified]
             end
             attr_reader(*(attributes + time_attributes))
+
+            def initialize(data:, client:, response: nil)
+                assign_attributes(data)
+                @client = client
+                @response = response
+            end
+
+            def groups
+                @groups ||= Group.list(client: @client, organization: self)
+            end
+            
