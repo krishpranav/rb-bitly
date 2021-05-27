@@ -25,4 +25,20 @@ module Bitly
             params[:state] = state if state
             @client.authorize_uri(**params).gsub(/api-ssl\./,'')
         end
+
+        def access_token(redirect_uri: nil, code: nil, username: nil, password: nil)
+            begin
+                if redirect_uri && code
+                    access_token_from_code(redirect_uri: redirect_uri, code: code)
+                elsif username && password
+                    access_token_from_credentials(username: username, password: password)
+                else
+                    raise ArgumentError, "not enough arguments, please include a redirect uri and code or a username and password."
+                end
+            rescue OAuth2::Error => e
+                raise Bitly::Error, Bitly::HTTP::Response.new(status: e.response.status.to_s, body: e.response.body, headers: e.response.headers)
+            end
+        end
+
+        private 
         
