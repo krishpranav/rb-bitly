@@ -13,4 +13,9 @@ module Bitly
             attr_reader :metrics
 
             Metric = Struct.new(:key, :value)
+
+            def self.by_group(client:, group_guid:)
+                response = client.request(path: "/groups#{group_guid}/shorten_counts")
+                new(data: response.body, response: response)
+            end
             
